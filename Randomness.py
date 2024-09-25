@@ -8,7 +8,7 @@ data_dict = {"000": "0,0",
              "110": "0,0",
              "111": "0,0"}
 balance = 100
-print("Please provide AI some data to learn...")
+print("Please provide the computer with some data... ")
 while len(data) < 100:
     print(f"The current data length is {len(data)}, {100 - len(data)} symbols left")
     user_input = input("Print a random string containing 0 or 1:\n")
@@ -27,7 +27,7 @@ for i in range(len(data) - 3):
         data_dict[three_letters] = f"{values.split(',')[0]}, {int(values.split(',')[-1]) + 1}".replace(" ", "")
     three_letters = ""
 
-print('You have $100. Every time the system successfully predicts your next press, you lose $1.\nOtherwise, you earn $1. Print "enough" to leave the game. Let\'s go!')
+print("You have 100 points. Every time the system successfully predicts your next press, you lose 1 point.\nOtherwise, you earn 1 point. Print 'exit' to leave the game. ")
 
 while True:
     while True:
@@ -35,7 +35,7 @@ while True:
         prediction = ""
         flag = True
         test_string = input("\nPrint a random string containing 0 or 1:\n")
-        if test_string == "enough":
+        if test_string == "exit":
             print("Game over!")
             exit()
         elif len(test_string) >= 4:
@@ -60,4 +60,4 @@ while True:
     print(f"Computer guessed {score} out of {len(prediction)} symbols right ({round(score / len(prediction) * 100, 2)}%)")
     balance += len(prediction) - score
     balance -= score
-    print(f"Your balance is now ${balance}")
+    print(f"You now have {balance} points!")
