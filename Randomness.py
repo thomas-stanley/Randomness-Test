@@ -7,10 +7,10 @@ data_dict = {"000": "0,0",
              "101": "0,0",
              "110": "0,0",
              "111": "0,0"}
-balance = 100
+balance = 50
 print("Please provide the computer with some data... ")
 while len(data) < 100:
-    print(f"The current data length is {len(data)}, {100 - len(data)} symbols left")
+    print(f"The current data length is {len(data)}, {100 - len(data)} symbols left.")
     user_input = input("Print a random string containing 0 or 1:\n")
     for x in user_input:
         if x in "10":
@@ -27,7 +27,7 @@ for i in range(len(data) - 3):
         data_dict[three_letters] = f"{values.split(',')[0]}, {int(values.split(',')[-1]) + 1}".replace(" ", "")
     three_letters = ""
 
-print("You have 100 points. Every time the system successfully predicts your next press, you lose 1 point.\nOtherwise, you earn 1 point. Print 'exit' to leave the game. ")
+print("You have 50 points. Every time the system successfully predicts your next press, you lose 1 point.\nOtherwise, you earn 1 point. Print 'exit' to leave the game. ")
 
 while True:
     while True:
