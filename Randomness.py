@@ -36,7 +36,7 @@ while True:
         flag = True
         test_string = input("\nPrint a random string containing 0 or 1:\n")
         if test_string == "exit":
-            print("Game over!")
+            print(f"\nGame over! You finished with {balance} points.")
             exit()
         elif len(test_string) >= 4:
             for x in test_string:
@@ -60,4 +60,7 @@ while True:
     print(f"Computer guessed {score} out of {len(prediction)} symbols right ({round(score / len(prediction) * 100, 2)}%)")
     balance += len(prediction) - score
     balance -= score
+    if balance <= 0:
+        print("Game over! You ran out of points.")
+        exit()
     print(f"You now have {balance} points!")
