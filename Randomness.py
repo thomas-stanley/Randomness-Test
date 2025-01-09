@@ -51,7 +51,6 @@ Print 'exit' to leave the game.""")
         while True:
             while True:
                 # Starts the game and does input sanitation
-                score = 0
                 prediction = ""
                 flag = True
                 test_string = input("\nPrint a random string containing 0 or 1:\n")
@@ -74,21 +73,29 @@ Print 'exit' to leave the game.""")
                     prediction += "0"
                 else:
                     prediction += "1"
-            print(f"predictions:\n{prediction}\n")
-            # Keeps score
-            for i in range(len(prediction)):
-                if prediction[i] == test_string[i + 3]:
-                    score += 1
-            print(f"Computer guessed {score} out of {len(prediction)} symbols right ({round(score / len(prediction) * 100, 2)}%)")
-            self.points += len(prediction) - score
-            self.points -= score
-            # Checks if points reach 0
-            self.create_trigrams(test_string)
-            if self.points <= 0:
-                print("Game over! You ran out of points.")
-                exit()
-            print(f"You now have {self.points} points!")
+            self.play_round(test_string, prediction)
+    
+    def update_score(self, user_string, prediction):
+        score = 0
+        OFFSET = 3
+        for index in range(len(prediction)):
+            if prediction[index] == user_string[index + OFFSET]:
+                score += 1
+        return score
 
+
+    def play_round(self, user_string, prediction):
+        # Keeps score
+        score = self.update_score(user_string, prediction)
+        print(f"Predictions:\n{prediction}\n")
+        print(f"Computer guessed {score} out of {len(prediction)} symbols right ({round(score / len(prediction) * 100, 2)}%)")
+        self.points += len(prediction) - 2 * score  # If the score of the computer is less than half of the prediction, the user gains points
+        self.create_trigrams(user_string)
+        # Checks if points reach 0
+        if self.points <= 0:
+            print("Game over! You ran out of points.")
+            exit()
+        print(f"You now have {self.points} points!")
 
 def main():
     Randomness()
