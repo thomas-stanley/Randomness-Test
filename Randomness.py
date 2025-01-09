@@ -1,4 +1,4 @@
-
+# Initialises all of the possible trigrams
 data_dict = {"000": "0,0",
              "001": "0,0",
              "010": "0,0",
@@ -7,7 +7,7 @@ data_dict = {"000": "0,0",
              "101": "0,0",
              "110": "0,0",
              "111": "0,0"}
-balance = 50
+points = 50  # Starting points for the game
 
 
 def user_data():
@@ -18,11 +18,10 @@ def user_data():
         print(f"The current data length is {len(input_data)}, {100 - len(input_data)} symbols left.")
         user_input = input("Print a random string containing 0 or 1:\n")
         for number in user_input:
-            # Ensures data is valid-
+            # Ensures data is valid
             if number in "10":
                 input_data += number
     print(f"\nFinal data string:\n{input_data}\n")
-    # options = ["000", "001", "010", "011", "100", "101", "110", "111"]
     return input_data
 
 
@@ -41,8 +40,11 @@ def create_trigrams(data):
 
 
 create_trigrams(initial_data)
-print("You have 50 points. Every time the system successfully predicts your next press, you lose 1 point.\n"
-      "Otherwise, you earn 1 point. Print 'exit' to leave the game. ")
+print("""You have 50 points.
+Every time the system successfully predicts your next press, you lose 1 point.
+Every time the system unsuccessfully predicts your next press, you earn 1 point.
+Your input needs to be at least four characters as the computer will predict every character chosen after the first three. 
+Print 'exit' to leave the game.""")
 
 while True:
     while True:
@@ -52,7 +54,7 @@ while True:
         flag = True
         test_string = input("\nPrint a random string containing 0 or 1:\n")
         if test_string == "exit":
-            print(f"\nGame over! You finished with {balance} points.")
+            print(f"\nGame over! You finished with {points} points.")
             exit()
         elif len(test_string) >= 4:
             for x in test_string:
@@ -76,11 +78,11 @@ while True:
         if prediction[i] == test_string[i + 3]:
             score += 1
     print(f"Computer guessed {score} out of {len(prediction)} symbols right ({round(score / len(prediction) * 100, 2)}%)")
-    balance += len(prediction) - score
-    balance -= score
-    # Checks if balance reaches 0
+    points += len(prediction) - score
+    points -= score
+    # Checks if points reach 0
     create_trigrams(test_string)
-    if balance <= 0:
+    if points <= 0:
         print("Game over! You ran out of points.")
         exit()
-    print(f"You now have {balance} points!")
+    print(f"You now have {points} points!")
