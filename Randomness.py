@@ -76,6 +76,7 @@ Print 'exit' to leave the game.""")
             self.play_round(test_string, prediction)
     
     def update_score(self, user_string, prediction):
+        # Calculate score based on how accurate the prediction is
         score = 0
         OFFSET = 3
         for index in range(len(prediction)):
@@ -85,8 +86,7 @@ Print 'exit' to leave the game.""")
 
 
     def play_round(self, user_string, prediction):
-        # Keeps score
-        score = self.update_score(user_string, prediction)
+        score = self.update_score(user_string, prediction)  # Keeps score
         print(f"Predictions:\n{prediction}\n")
         print(f"Computer guessed {score} out of {len(prediction)} symbols right ({round(score / len(prediction) * 100, 2)}%)")
         self.points += len(prediction) - 2 * score  # If the score of the computer is less than half of the prediction, the user gains points
